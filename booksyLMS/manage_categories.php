@@ -101,6 +101,23 @@ if (isset($_GET['edit'])) {
         <a href="logout.php">Logout</a>
     </div>
     <div class="content">
+
+        <?php
+        if (isset($_SESSION['error'])) {
+            echo "<div style='background:#dc3545;color:white;padding:10px;border-radius:5px;margin-bottom:15px;'>
+            " . $_SESSION['error'] . "
+          </div>";
+            unset($_SESSION['error']);
+        }
+
+        if (isset($_SESSION['success'])) {
+            echo "<div style='background:#28a745;color:white;padding:10px;border-radius:5px;margin-bottom:15px;'>
+            " . $_SESSION['success'] . "
+          </div>";
+            unset($_SESSION['success']);
+        }
+        ?>
+
         <h1>Manage Categories</h1>
 
         <a href="admin.php" class="btn" style="margin-bottom: 15px; display: inline-block; text-decoration: none;">&larr; Back</a>

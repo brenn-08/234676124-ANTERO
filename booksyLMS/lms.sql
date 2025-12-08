@@ -1,7 +1,8 @@
+-- Database creation
 CREATE DATABASE lms_db;
 USE lms_db;
 
--- Users table
+-- Creation of users table
 CREATE TABLE users (
     user_id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
@@ -15,19 +16,19 @@ CREATE TABLE users (
 -- Insert default admin
 INSERT INTO users (name, email, password, role) VALUES ('Admin', 'admin@booksy.com', '$2y$10$examplehashedpassword', 'admin');  -- Replace with actual hash for 'admin12345'
 
--- Authors table
+-- Creation of authors table
 CREATE TABLE authors (
     author_id INT AUTO_INCREMENT PRIMARY KEY,
     author_name VARCHAR(255) NOT NULL
 );
 
--- Categories table
+-- Creation of categories table
 CREATE TABLE categories (
     category_id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(255) NOT NULL
 );
 
--- Books table
+-- Creation of books table
 CREATE TABLE books (
     book_id INT AUTO_INCREMENT PRIMARY KEY,
     author_id INT NOT NULL,
@@ -39,7 +40,7 @@ CREATE TABLE books (
     FOREIGN KEY (category_id) REFERENCES categories(category_id) ON DELETE CASCADE
 );
 
--- Loans table
+-- Creation of loans table
 CREATE TABLE loans (
     loan_id INT AUTO_INCREMENT PRIMARY KEY,
     book_id INT NOT NULL,
@@ -51,7 +52,7 @@ CREATE TABLE loans (
     FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE
 );
 
--- Sample data (optional, for testing)
+-- Sample data for testing
 INSERT INTO authors (author_name) VALUES ('F. Scott Fitzgerald'), ('George Orwell');
 INSERT INTO categories (name) VALUES ('Fiction'), ('Dystopian');
 INSERT INTO books (author_id, category_id, title, isbn) VALUES (1, 1, 'The Great Gatsby', '1234567890'), (2, 2, '1984', '0987654321');

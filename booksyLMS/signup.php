@@ -22,7 +22,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <title>Booksy LMS - Signup</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
     <style>
-        /* Reset box-sizing for perfect alignment */
+        
         * {
             box-sizing: border-box;
         }
@@ -42,7 +42,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             padding: 50px;
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0,0,0,0.15);
-            width: 380px; /* Increased width */
+            width: 380px; 
             display: flex;
             flex-direction: column;
         }
@@ -52,15 +52,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             font-weight: 600;
             color: #1b1f3b;
             text-align: center;
-            font-size: 24px; /* Slightly larger */
+            font-size: 24px; 
         }
 
         input, button {
             width: 100%;
-            padding: 14px; /* Larger height */
-            margin: 10px 0; /* Slightly more spacing */
+            padding: 14px; 
+            margin: 10px 0; 
             border-radius: 5px;
-            font-size: 15px; /* Slightly larger text */
+            font-size: 15px; 
             font-family: 'Poppins', sans-serif;
             display: block;
         }
@@ -99,7 +99,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             text-align: center;
         }
 
-        /* Responsive for smaller screens */
         @media (max-width: 420px) {
             .signup-form {
                 width: 90%;

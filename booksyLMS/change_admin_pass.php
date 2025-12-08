@@ -1,17 +1,15 @@
 <?php
-// Include DB connection
+
+// For the database connection
 require 'db_config.php';
 
-// -------------------------------
-// NEW PASSWORD FOR ADMIN
-// -------------------------------
+// Setting up new password for admin
 $new_password = 'admin12345'; // Change as needed
 $hashed = password_hash($new_password, PASSWORD_DEFAULT);
 
-// -------------------------------
-// UPDATE ADMIN PASSWORD
-// -------------------------------
-$adminEmail = 'admin@booksy.com'; // Default admin email
+
+// Default admin email
+$adminEmail = 'admin@booksy.com'; 
 
 $sql = "UPDATE users SET password = ? WHERE email = ?";
 $stmt = $pdo->prepare($sql);

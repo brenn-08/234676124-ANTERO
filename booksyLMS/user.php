@@ -25,6 +25,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['request_loan'])) {
     $return_date = date('Y-m-d', strtotime('+14 days'));  // Default 2 weeks; can be configurable
     $stmt = $pdo->prepare("INSERT INTO loans (book_id, user_id, checkout_date, return_date, status) VALUES (?, ?, ?, ?, 'active')");
     if ($stmt->execute([$book_id, $user_id, $checkout_date, $return_date])) {
+        
         // Update book status
         $pdo->prepare("UPDATE books SET status='loaned' WHERE book_id=?")->execute([$book_id]);
         $success = "Loan requested successfully!";
@@ -38,6 +39,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['return_loan'])) {
     $loan_id = $_POST['loan_id'];
     $stmt = $pdo->prepare("UPDATE loans SET status='returned', return_date=CURDATE() WHERE loan_id=? AND user_id=?");
     if ($stmt->execute([$loan_id, $user_id])) {
+
         // Get book_id and update status
         $book_stmt = $pdo->prepare("SELECT book_id FROM loans WHERE loan_id=?");
         $book_stmt->execute([$loan_id]);
@@ -54,7 +56,7 @@ $user_loans = $pdo->prepare("SELECT l.loan_id, b.title, a.author_name, l.checkou
 $user_loans->execute([$user_id]);
 $user_loans = $user_loans->fetchAll(PDO::FETCH_ASSOC);
 
-// Fetch available books (with search filter)
+// Fetch available books with search filter
 $search = isset($_GET['search']) ? trim($_GET['search']) : '';
 $query = "SELECT b.book_id, b.title, a.author_name, c.name AS category, b.status FROM books b JOIN authors a ON b.author_id = a.author_id JOIN categories c ON b.category_id = c.category_id WHERE b.status='available'";
 if ($search) {
@@ -129,7 +131,7 @@ $available_books = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 </div>
                 <div class="card">
                     <h3>Available Credits</h3>
-                    <p>5</p>  <!-- Static; can make dynamic if adding credits system -->
+                    <p>5</p>  <!-- Static -->
                 </div>
             </div>
         </div>
@@ -213,8 +215,7 @@ $available_books = $stmt->fetchAll(PDO::FETCH_ASSOC);
         <div id="profile">
             <h2>Profile</h2>
             <p>Name: <?php echo $name; ?></p>
-            <p>Email: <?php echo $_SESSION['email'] ?? 'N/A'; ?></p>  <!-- Assuming email in session; add if needed -->
-            <!-- Add edit profile form if desired -->
+            <p>Email: <?php echo $_SESSION['email'] ?? 'N/A'; ?></p>  
         </div>
 
         <div id="support">

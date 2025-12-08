@@ -1,11 +1,13 @@
 <?php
+
 // Include the PDO database connection
 require 'db_config.php';
 
 if (isset($_GET['book_id'])) {
-    $book_id = intval($_GET['book_id']); // sanitize input
+    $book_id = intval($_GET['book_id']); 
 
     try {
+
         // Prepare and execute the DELETE statement using PDO
         $stmt = $pdo->prepare("DELETE FROM books WHERE book_id = :book_id");
         $stmt->execute(['book_id' => $book_id]);

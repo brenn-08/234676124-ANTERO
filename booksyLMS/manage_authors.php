@@ -8,6 +8,7 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] != 'admin') {
 require 'db_config.php';
 
 // Handle POST actions
+
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (isset($_POST['add'])) {
         $stmt = $pdo->prepare("INSERT INTO authors (author_name) VALUES (?)");
@@ -23,9 +24,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 }
 
 // Fetch authors
+
 $authors = $pdo->query("SELECT * FROM authors ORDER BY author_id DESC")->fetchAll(PDO::FETCH_ASSOC);
 
 // Fetch author for edit
+
 $edit_author = null;
 if (isset($_GET['edit'])) {
     $stmt = $pdo->prepare("SELECT * FROM authors WHERE author_id=?");
@@ -48,6 +51,7 @@ if (isset($_GET['edit'])) {
         h1, h2 { color: #1b1f3b; }
 
         /* Sidebar */
+
         .sidebar {
             position: fixed; width: 220px; height: 100%; background: #1b1f3b; color: white; padding-top: 20px;
         }
@@ -56,9 +60,11 @@ if (isset($_GET['edit'])) {
         .sidebar a:hover { background: #30365f; }
 
         /* Content */
+
         .content { margin-left: 240px; padding: 20px; }
 
         /* Forms */
+
         form { background: white; padding: 20px; border-radius: 8px; margin-bottom: 20px; }
         input { width: 100%; padding: 10px; margin: 5px 0; border-radius: 4px; border: 1px solid #ccc; font-size: 14px; }
         button { padding: 10px; border-radius: 4px; border: none; cursor: pointer; font-weight: 500; font-size: 14px; }
@@ -68,6 +74,7 @@ if (isset($_GET['edit'])) {
         button.btn-danger:hover { background: #c82333; }
 
         /* Table */
+
         table { width: 100%; border-collapse: collapse; background: white; border-radius: 8px; overflow: hidden; margin-top: 15px; }
         th, td { padding: 12px; text-align: left; border-bottom: 1px solid #ddd; font-size: 14px; }
         th { background: #1b1f3b; color: white; }
@@ -75,6 +82,7 @@ if (isset($_GET['edit'])) {
         td.actions { display: flex; gap: 5px; flex-wrap: wrap; }
 
         /* Responsive */
+
         @media (max-width: 768px) {
             .sidebar { width: 100%; height: auto; position: relative; }
             .content { margin-left: 0; }
@@ -102,6 +110,23 @@ if (isset($_GET['edit'])) {
     </div>
 
     <div class="content">
+
+        <?php
+        if (isset($_SESSION['error'])) {
+            echo "<div style='background:#dc3545;color:white;padding:10px;border-radius:5px;margin-bottom:15px;'>
+            " . $_SESSION['error'] . "
+          </div>";
+            unset($_SESSION['error']);
+        }
+
+        if (isset($_SESSION['success'])) {
+            echo "<div style='background:#28a745;color:white;padding:10px;border-radius:5px;margin-bottom:15px;'>
+            " . $_SESSION['success'] . "
+          </div>";
+            unset($_SESSION['success']);
+        }
+        ?>
+        
         <h1>Manage Authors</h1>
 
         <a href="admin.php" class="btn" style="margin-bottom: 15px; display: inline-block; text-decoration: none;">&larr; Back</a>

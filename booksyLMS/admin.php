@@ -6,13 +6,14 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] != 'admin') {
 }
 require 'db_config.php';
 
-// Fetch counts
+// Fetch counts for total books, active members, books loaned, and overdue
 $total_books = $pdo->query("SELECT COUNT(*) FROM books")->fetchColumn();
 $active_members = $pdo->query("SELECT COUNT(*) FROM users WHERE role='user' AND membership_status='active'")->fetchColumn();
 $books_loaned = $pdo->query("SELECT COUNT(*) FROM loans WHERE status='active'")->fetchColumn();
 $overdue = $pdo->query("SELECT COUNT(*) FROM loans WHERE status='active' AND return_date < CURDATE()")->fetchColumn();
 ?>
 
+<!-- For the admin dashboard -->
 <!DOCTYPE html>
 <html>
 <head>

@@ -50,7 +50,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             padding: 50px;
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0,0,0,0.15);
-            width: 380px; /* Slightly larger */
+            width: 380px; 
             display: flex;
             flex-direction: column;
         }
@@ -107,7 +107,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             text-align: center;
         }
 
-        /* Responsive for smaller screens */
         @media (max-width: 420px) {
             .login-form {
                 width: 90%;

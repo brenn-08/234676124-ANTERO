@@ -7,6 +7,7 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] != 'admin') {
 require 'db_config.php';
 
 // Handle actions
+
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (isset($_POST['add'])) {
         $stmt = $pdo->prepare("INSERT INTO books (author_id, category_id, title, isbn, status) VALUES (?, ?, ?, ?, ?)");
@@ -27,6 +28,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 }
 
 // Fetch data
+
 $books = $pdo->query("SELECT b.*, a.author_name, c.name AS category_name FROM books b JOIN authors a ON b.author_id = a.author_id JOIN categories c ON b.category_id = c.category_id")->fetchAll(PDO::FETCH_ASSOC);
 $authors = $pdo->query("SELECT * FROM authors")->fetchAll(PDO::FETCH_ASSOC);
 $categories = $pdo->query("SELECT * FROM categories")->fetchAll(PDO::FETCH_ASSOC);
@@ -47,7 +49,7 @@ if (isset($_GET['edit'])) {
     <title>Manage Books - Admin</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
     <style>
-        /* General */
+        
         * {
             box-sizing: border-box;
             font-family: 'Poppins', sans-serif;
@@ -323,6 +325,7 @@ if (isset($_GET['edit'])) {
                         <td data-label="ISBN"><?php echo htmlspecialchars($book['isbn']); ?></td>
                         <td data-label="Status"><?php echo $book['status']; ?></td>
                         <td data-label="Actions" style="display: flex; gap: 5px; flex-wrap: wrap;">
+
                             <!-- Edit button -->
                             <a href="?edit=<?= $book['book_id'] ?>">
                                 <button type="button" class="btn">Edit</button>
@@ -337,6 +340,7 @@ if (isset($_GET['edit'])) {
                         <script>
                             function confirmDelete(bookId) {
                                 if (confirm('Delete this book?')) {
+
                                     // Redirect to delete_book.php with the book ID
                                     window.location.href = 'delete_book.php?book_id=' + bookId;
                                 }
